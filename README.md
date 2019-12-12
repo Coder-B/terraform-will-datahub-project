@@ -8,6 +8,12 @@ These types of resources are supported:
 ## Usage
 you can write these code in you main.tf
 ```
+module "datahub-project" {
+  source  = "Coder-B/datahub-project/will"
+  version = "0.0.1"
+  name = "awesomeDatahubProject"
+  comment = "this is an awesome datahub project"
+}
 ```
 **key settings**<br>
 Setting `access_key` and `secret_key` values through environment variables:
