@@ -10,12 +10,13 @@ import (
 
 // An example of how to test the simple Terraform module in examples/terraform-basic-example using Terratest.
 func TestTerraformBasicExampleNew(t *testing.T) {
+	projectname := "awesomeproject"
 	terraformOptions := &terraform.Options {
 		// The path to where your Terraform code is located
 		TerraformDir: "../",
 		// Variables to pass to our Terraform code using -var options
 		Vars: map[string]interface{}{
-			"name": "tf-example-ons-instance",
+			"name": projectname,
 			"comment" = "tf-example-ons-instance-remark",
 			"region" = "cn-beijing",
 		},
@@ -28,11 +29,7 @@ func TestTerraformBasicExampleNew(t *testing.T) {
 	  
 	// This will run `terraform init` and `terraform apply` and fail the test if there are any errors
 	terraform.InitAndApply(t, terraformOptions)
-	  
-	// Validate your code works as expected
-	validateServerIsWorking(t, terraformOptions)
 
-	mqInstanceId := terraform.Output(t, terraformOptions, "id")
-	assert.NotNil(t, mqInstanceId)
-	
+	actualproject := terraform.Output(t, terraformOptions, "id")
+	assert.Equal(t, projectname, actualproject)
 }
